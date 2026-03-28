@@ -24,7 +24,9 @@ h1, h2 {
 header {
   position: fixed;
   width: 100%;
-  background: white;
+  /* background: white; */
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(10px);
   transition: 0.3s;
   z-index: 1000;
 }
@@ -54,6 +56,27 @@ nav ul li {
 
 #hamburger {
   display: none;
+}
+
+.logo img {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* For premium feel (optional) */
+.logo img {
+  transition: transform 0.3s ease;
+}
+
+.logo img:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .logo img {
+    height: 45px;
+  }
 }
 
 /* HERO */
