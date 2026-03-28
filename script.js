@@ -1,26 +1,53 @@
-// Toggle mobile menu
-const toggle = document.getElementById("menu-toggle");
-const nav = document.getElementById("nav-links");
+// ===== MENU TOGGLE =====
+const hamburger = document.getElementById("hamburger");
+const navMenu = document.getElementById("nav-menu");
 
-toggle.addEventListener("click", () => {
-  nav.style.display = nav.style.display === "flex" ? "none" : "flex";
+hamburger.addEventListener("click", () => {
+  navMenu.classList.toggle("active");
+  navMenu.style.display = navMenu.classList.contains("active") ? "flex" : "none";
 });
 
-// Smooth scrolling
-document.querySelectorAll("a[href^='#']").forEach(anchor => {
-  anchor.addEventListener("click", function (e) {
+// ===== SMOOTH SCROLL =====
+document.querySelectorAll("a[href^='#']").forEach(link => {
+  link.addEventListener("click", function(e) {
     e.preventDefault();
-    document.querySelector(this.getAttribute("href")).scrollIntoView({
-      behavior: "smooth"
-    });
-
-    // close menu on click (mobile)
-    nav.style.display = "none";
+    document.querySelector(this.getAttribute("href"))
+      .scrollIntoView({ behavior: "smooth" });
   });
 });
 
-// Navbar shadow on scroll
+// ===== NAVBAR SHADOW =====
 window.addEventListener("scroll", () => {
-  document.querySelector(".navbar").style.boxShadow =
-    window.scrollY > 10 ? "0 2px 5px rgba(0,0,0,0.3)" : "none";
+  document.querySelector(".navbar")
+    .classList.toggle("scrolled", window.scrollY > 50);
+});
+
+// ===== GALLERY LIGHTBOX =====
+const galleryItems = document.querySelectorAll(".gallery-item img");
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightbox-img");
+const closeBtn = document.getElementById("close");
+
+galleryItems.forEach(img => {
+  img.addEventListener("click", () => {
+    lightbox.style.display = "flex";
+    lightboxImg.src = img.src;
+  });
+});
+
+closeBtn.addEventListener("click", () => {
+  lightbox.style.display = "none";
+});
+
+// Close on outside click
+lightbox.addEventListener("click", (e) => {
+  if (e.target !== lightboxImg) {
+    lightbox.style.display = "none";
+  }
+});
+
+// ===== NAVBAR SCROLL EFFECT =====
+window.addEventListener("scroll", () => {
+  const navbar = document.querySelector(".navbar");
+  navbar.classList.toggle("scrolled", window.scrollY > 20);
 });
