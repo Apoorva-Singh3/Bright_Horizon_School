@@ -320,7 +320,7 @@ nav ul li {
 /* ---------- Reset & Base ---------- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: smooth; font-size: 16px; }
+html { scroll-behavior: smooth; font-size: 18px; }
 
 body {
   font-family: var(--font-body);
@@ -362,11 +362,11 @@ address { font-style: normal; }
 
 h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.2; }
 
-h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); color: var(--gray-900); margin-bottom: 1rem; }
-h3 { font-size: clamp(1.1rem, 2.5vw, 1.4rem); margin-bottom: 0.5rem; }
+h2 { font-size: clamp(2rem, 4.5vw, 3rem); color: var(--gray-900); margin-bottom: 1rem; }
+h3 { font-size: clamp(1.3rem, 2.8vw, 1.6rem); margin-bottom: 0.5rem; }
 
 .section-intro {
-  font-size: 1.05rem;
+  font-size: 1.2rem;
   color: var(--gray-700);
   max-width: 600px;
   margin: 0 auto;
@@ -537,7 +537,7 @@ h3 { font-size: clamp(1.1rem, 2.5vw, 1.4rem); margin-bottom: 0.5rem; }
   gap: 0.25rem;
   padding: 0 0.85rem;
   height: var(--header-h);
-  font-size: 0.88rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: var(--gray-700);
   transition: color var(--transition);
@@ -806,7 +806,7 @@ h3 { font-size: clamp(1.1rem, 2.5vw, 1.4rem); margin-bottom: 0.5rem; }
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--green-light);
+  color: var(--blue-light);
   margin-bottom: 1.25rem;
   animation: heroIn 1s 0.15s both;
 }
@@ -825,7 +825,7 @@ h3 { font-size: clamp(1.1rem, 2.5vw, 1.4rem); margin-bottom: 0.5rem; }
 }
 
 .hero-sub {
-  font-size: clamp(1rem, 2vw, 1.15rem);
+  font-size: clamp(1.15rem, 2.5vw, 1.35rem);
   color: rgba(255,255,255,0.8);
   max-width: 520px;
   margin: 0 auto 2rem;
@@ -961,7 +961,7 @@ h3 { font-size: clamp(1.1rem, 2.5vw, 1.4rem); margin-bottom: 0.5rem; }
   margin-bottom: 0.75rem;
 }
 .division-body h3 { margin-bottom: 0.5rem; color: var(--gray-900); }
-.division-body p { font-size: 0.9rem; color: var(--gray-700); margin-bottom: 1rem; }
+.division-body p { font-size: 1rem; color: var(--gray-700); margin-bottom: 1rem; }
 
 .learn-link {
   font-weight: 700;
@@ -1170,7 +1170,7 @@ h3 { font-size: clamp(1.1rem, 2.5vw, 1.4rem); margin-bottom: 0.5rem; }
   padding-top: 0.1rem;
 }
 .adm-step strong { display: block; font-size: 1rem; color: var(--green-dark); margin-bottom: 0.15rem; }
-.adm-step p { font-size: 0.88rem; color: var(--gray-700); }
+.adm-step p { font-size: 1rem; color: var(--gray-700); }
 
 .adm-btn-group {
   display: flex;
@@ -1303,7 +1303,7 @@ h3 { font-size: clamp(1.1rem, 2.5vw, 1.4rem); margin-bottom: 0.5rem; }
   margin-bottom: 0.4rem;
 }
 .news-body h3 { margin-bottom: 0.5rem; font-size: 1rem; }
-.news-body p { font-size: 0.88rem; color: var(--gray-700); margin-bottom: 0.75rem; }
+.news-body p { font-size: 1rem; color: var(--gray-700); margin-bottom: 0.75rem; }
 
 /* ============================================
    SUPPORT CTA
@@ -1389,13 +1389,13 @@ h3 { font-size: clamp(1.1rem, 2.5vw, 1.4rem); margin-bottom: 0.5rem; }
 }
 .footer-col ul { display: flex; flex-direction: column; gap: 0.5rem; }
 .footer-col ul a {
-  font-size: 0.88rem;
+  font-size: 0.95rem;
   transition: color var(--transition);
 }
 .footer-col ul a:hover { color: var(--white); }
 
 .footer-col address p {
-  font-size: 0.88rem;
+  font-size: 0.95rem;
   margin-bottom: 0.5rem;
 }
 .footer-col address a { transition: color var(--transition); }
