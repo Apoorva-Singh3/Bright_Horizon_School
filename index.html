@@ -3,180 +3,93 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bright Horizon</title>
-
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
+  <title>Bright Horizon School</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- ===== TOP BAR ===== -->
-<div class="top-bar">
-  <div class="container top-content">
-    <div class="top-links">
-      <a href="#">Visit</a>
-      <a href="#">Apply</a>
-      <a href="#">Give</a>
-    </div>
-    <div class="top-links">
-      <a href="#">Login</a>
-    </div>
-  </div>
-</div>
-
-<!-- ===== MAIN NAVBAR ===== -->
+<!-- Navbar -->
 <header class="navbar">
-  <div class="container nav-container">
-
-    <div class="logo">
-      <img src="./logo.png" alt="Logo">
-      <span>Bright Horizon</span>
-    </div>
-
-    <nav id="nav-menu">
-      <a href="#about">About</a>
-      <a href="#academics">Academics</a>
-      <a href="#arts">Arts</a>
-      <a href="#athletics">Athletics</a>
-      <a href="#admission">Admission</a>
-      <a href="#contact">Contact</a>
-    </nav>
-
-    <div class="nav-actions">
-      <a href="#" class="btn-outline">Apply Now</a>
-      <div class="hamburger" id="hamburger">☰</div>
-    </div>
-
+  <div class="logo-container">
+    <img src="./logo.png" alt="Logo" class="logo">
+    <span class="school-name">Bright Horizon</span>
   </div>
+
+  <div class="menu-toggle" id="menu-toggle">☰</div>
+
+  <nav id="nav-links">
+    <a href="#about">About</a>
+    <a href="#admission">Admission</a>
+    <a href="#academics">Academics</a>
+    <a href="#arts">Arts</a>
+    <a href="#athletics">Athletics</a>
+    <a href="#contact">Contact</a>
+  </nav>
 </header>
 
-<!-- ===== HERO ===== -->
+<!-- Hero -->
 <section class="hero">
-  <div class="overlay"></div>
-  <div class="hero-content">
-    <h1>Welcome to Bright Horizon</h1>
-    <p>Empowering students for a brighter future</p>
-    <a href="#about" class="btn">Explore More</a>
-  </div>
+  <h1>Welcome to Bright Horizon</h1>
+  <p>Empowering students for a brighter future</p>
+  <a href="#about" class="btn">Explore More</a>
 </section>
 
-<!-- ===== ABOUT ===== -->
+<!-- About -->
 <section id="about" class="section">
-  <div class="container narrow">
-    <h2>About Bright Horizon</h2>
-    <p>
-      At Bright Horizon, we cultivate intellectual curiosity, character, and leadership.
-      Our students grow in a nurturing environment designed to inspire excellence.
-    </p>
-  </div>
+  <h2>About Us</h2>
+  <p>
+    Bright Horizon is dedicated to nurturing young minds with quality education,
+    strong values, and holistic development. We believe in shaping future leaders
+    through innovation and excellence.
+  </p>
 </section>
 
-<!-- ===== ACADEMICS ===== -->
+<!-- Academics -->
 <section id="academics" class="section light">
-  <div class="container">
-    <h2>Academics</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>Primary School</h3>
-        <p>Strong academic foundation with joyful learning.</p>
-      </div>
-      <div class="card">
-        <h3>Secondary School</h3>
-        <p>Rigorous curriculum preparing future leaders.</p>
-      </div>
-      <div class="card">
-        <h3>Co-curricular</h3>
-        <p>Holistic growth beyond the classroom.</p>
-      </div>
-    </div>
+  <h2>Academics</h2>
+  <div class="card-container">
+    <div class="card">Primary Education</div>
+    <div class="card">Secondary Education</div>
+    <div class="card">Co-curricular Activities</div>
   </div>
 </section>
 
-<!-- ===== ARTS & ATHLETICS ===== -->
-<section class="split-section">
-  <div class="split-item" id="arts">
-    <h2>Arts</h2>
-    <p>Music, dance, and visual arts inspire creativity.</p>
-  </div>
-  <div class="split-item" id="athletics">
-    <h2>Athletics</h2>
-    <p>Sports build discipline, teamwork, and strength.</p>
-  </div>
+<!-- Arts -->
+<section id="arts" class="section">
+  <h2>Arts</h2>
+  <p>Music, Dance, Painting and creative expression for every student.</p>
 </section>
 
-<!-- ===== ADMISSION ===== -->
+<!-- Athletics -->
+<section id="athletics" class="section light">
+  <h2>Athletics</h2>
+  <p>Encouraging physical fitness through sports and outdoor activities.</p>
+</section>
+
+<!-- Admission -->
 <section id="admission" class="section">
-  <div class="container narrow">
-    <h2>Admissions</h2>
-    <ol class="steps">
-      <li>Submit Application</li>
-      <li>Document Review</li>
-      <li>Interaction Session</li>
-    </ol>
-    <a href="#" class="btn">Apply Now</a>
-  </div>
+  <h2>Admissions</h2>
+  <p>Simple admission process for aspiring students.</p>
+  <button class="btn">Apply Now</button>
 </section>
 
-<!-- ===== GALLERY ===== -->
-<section id="gallery" class="section">
-  <div class="container">
-    <h2>Campus Life</h2>
-
-    <div class="gallery">
-      <div class="gallery-item">
-        <img src="https://images.unsplash.com/photo-1588072432836-e10032774350" alt="">
-      </div>
-      <div class="gallery-item">
-        <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754" alt="">
-      </div>
-      <div class="gallery-item">
-        <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b" alt="">
-      </div>
-      <div class="gallery-item">
-        <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1" alt="">
-      </div>
-      <div class="gallery-item">
-        <img src="https://images.unsplash.com/photo-1596495577886-d920f1fb7238" alt="">
-      </div>
-      <div class="gallery-item">
-        <img src="https://images.unsplash.com/photo-1607237138185-eedd9c632b0b" alt="">
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== LIGHTBOX ===== -->
-<div id="lightbox">
-  <span id="close">&times;</span>
-  <img id="lightbox-img">
-</div>
-
-<!-- ===== CONTACT ===== -->
+<!-- Contact -->
 <section id="contact" class="section light">
-  <div class="container">
-    <h2>Contact Us</h2>
-    <p>123 School Road, City</p>
-    <p>+91 9876543210</p>
-    <p>info@brighthorizon.com</p>
+  <h2>Contact Us</h2>
+  <p>Email: info@brighthorizon.com</p>
+  <p>Phone: +91 9876543210</p>
+  <p>Address: Bhopal, Madhya Pradesh</p>
 
-    <div class="map">
-      <iframe src="https://maps.google.com/maps?q=school&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
-    </div>
+  <div class="map">
+    <iframe 
+      src="https://maps.google.com/maps?q=bhopal&t=&z=13&ie=UTF8&iwloc=&output=embed"
+      frameborder="0"></iframe>
   </div>
 </section>
 
-<!-- ===== FOOTER ===== -->
+<!-- Footer -->
 <footer>
-  <div class="container footer-content">
-    <p>© 2026 Bright Horizon</p>
-    <div class="socials">
-      <a href="#">FB</a>
-      <a href="#">IG</a>
-      <a href="#">TW</a>
-    </div>
-  </div>
+  <p>© 2026 Bright Horizon School</p>
 </footer>
 
 <script src="script.js"></script>
