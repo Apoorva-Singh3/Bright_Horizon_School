@@ -58,14 +58,18 @@ nav ul li {
   display: none;
 }
 
+/* LOGO COMBO */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Logo image */
 .logo img {
   height: 60px;
   width: auto;
   object-fit: contain;
-}
-
-/* For premium feel (optional) */
-.logo img {
   transition: transform 0.3s ease;
 }
 
@@ -73,9 +77,49 @@ nav ul li {
   transform: scale(1.05);
 }
 
+/* Text container */
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.logo::after {
+  content: "";
+  height: 30px;
+  width: 1px;
+  background: rgba(0,0,0,0.1);
+  margin-left: 10px;
+}
+
+/* Main name (serif = premium feel) */
+.school-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #1e3a5f; /* navy */
+}
+
+/* Subtext */
+.school-tag {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #bfa14a; /* gold accent */
+  text-transform: uppercase;
+}
+
 @media (max-width: 768px) {
   .logo img {
     height: 45px;
+  }
+
+  .school-name {
+    font-size: 16px;
+  }
+
+  .school-tag {
+    font-size: 10px;
   }
 }
 
