@@ -27,33 +27,52 @@ h1, h2, h3 {
   text-align: center;
 }
 
-/* ===== NAVBAR ===== */
+/* ===== TOP BAR ===== */
+.top-bar {
+  background: #08172a;
+  color: #fff;
+  font-size: 0.85rem;
+}
+
+.top-content {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+}
+
+.top-links a {
+  color: #ccc;
+  margin-right: 15px;
+  text-decoration: none;
+}
+
+.top-links a:hover {
+  color: #d4af37;
+}
+
+/* ===== NAVBAR PREMIUM ===== */
 .navbar {
   position: sticky;
   top: 0;
-  background: rgba(11,31,58,0.95);
-  backdrop-filter: blur(10px);
+  background: transparent;
+  transition: all 0.3s ease;
   z-index: 1000;
 }
 
+.navbar.scrolled {
+  background: rgba(11,31,58,0.95);
+  backdrop-filter: blur(10px);
+}
+
+/* Nav Layout */
 .nav-container {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   padding: 15px 0;
 }
 
-.logo {
-  display: flex;
-  align-items: center;
-  color: white;
-}
-
-.logo img {
-  width: 40px;
-  margin-right: 10px;
-}
-
+/* Nav Links */
 nav {
   display: none;
   flex-direction: column;
@@ -62,20 +81,60 @@ nav {
 nav a {
   color: white;
   text-decoration: none;
-  padding: 10px;
+  margin: 0 15px;
+  position: relative;
+  font-weight: 500;
+}
+
+/* Hover underline animation */
+nav a::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: #d4af37;
   transition: 0.3s;
 }
 
-nav a:hover {
-  color: var(--gold);
+nav a:hover::after {
+  width: 100%;
 }
 
-.hamburger {
-  color: white;
-  font-size: 24px;
-  cursor: pointer;
+/* CTA Button */
+.btn-outline {
+  border: 1px solid #d4af37;
+  padding: 8px 18px;
+  border-radius: 25px;
+  color: #d4af37;
+  text-decoration: none;
+  margin-right: 10px;
+  transition: 0.3s;
 }
 
+.btn-outline:hover {
+  background: #d4af37;
+  color: black;
+}
+
+/* Actions */
+.nav-actions {
+  display: flex;
+  align-items: center;
+}
+
+/* Desktop */
+@media (min-width: 768px) {
+  nav {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .hamburger {
+    display: none;
+  }
+}
 /* ===== HERO ===== */
 .hero {
   position: relative;
