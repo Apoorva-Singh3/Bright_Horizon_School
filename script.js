@@ -1,25 +1,23 @@
-// ===== MOBILE MENU TOGGLE =====
+// ===== MENU TOGGLE =====
 const hamburger = document.getElementById("hamburger");
 const navMenu = document.getElementById("nav-menu");
 
 hamburger.addEventListener("click", () => {
-  navMenu.style.display =
-    navMenu.style.display === "flex" ? "none" : "flex";
+  navMenu.classList.toggle("active");
+  navMenu.style.display = navMenu.classList.contains("active") ? "flex" : "none";
 });
 
 // ===== SMOOTH SCROLL =====
-document.querySelectorAll("a[href^='#']").forEach(anchor => {
-  anchor.addEventListener("click", function (e) {
+document.querySelectorAll("a[href^='#']").forEach(link => {
+  link.addEventListener("click", function(e) {
     e.preventDefault();
     document.querySelector(this.getAttribute("href"))
-      .scrollIntoView({
-        behavior: "smooth"
-      });
+      .scrollIntoView({ behavior: "smooth" });
   });
 });
 
-// ===== NAVBAR SHADOW ON SCROLL =====
+// ===== NAVBAR SHADOW =====
 window.addEventListener("scroll", () => {
-  const navbar = document.querySelector(".navbar");
-  navbar.classList.toggle("scrolled", window.scrollY > 50);
+  document.querySelector(".navbar")
+    .classList.toggle("scrolled", window.scrollY > 50);
 });
