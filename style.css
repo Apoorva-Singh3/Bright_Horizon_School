@@ -293,9 +293,9 @@ nav ul li {
 
 /* ---------- CSS Variables ---------- */
 :root {
-  --green-dark:    #1d4a33;
-  --green-mid:     #3a7d5a;
-  --green-light:   #c8e6d4;
+  --blue-dark:    #0d1b3e;   /* navy dark */
+  --blue-mid:     #1a2f6b;   /* navy mid */
+  --blue-light:   #c5cde8;   /* navy light/tint */
   --gold:          #c8922a;
   --gold-light:    #f5e4c0;
   --cream:         #faf8f3;
@@ -753,10 +753,14 @@ h3 { font-size: clamp(1.1rem, 2.5vw, 1.4rem); margin-bottom: 0.5rem; }
 .hero-bg {
   position: absolute;
   inset: 0;
-  background: 
+  /* background: 
     radial-gradient(ellipse at 30% 60%, rgba(58,125,90,0.35) 0%, transparent 60%),
     radial-gradient(ellipse at 80% 20%, rgba(200,146,42,0.2) 0%, transparent 50%),
-    linear-gradient(135deg, #1d4a33 0%, #0f2a1c 60%, #0a1a12 100%);
+    linear-gradient(135deg, #1d4a33 0%, #0f2a1c 60%, #0a1a12 100%); */
+  background: 
+    radial-gradient(ellipse at 30% 60%, rgba(26,47,107,0.5) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(200,146,42,0.2) 0%, transparent 50%),
+    linear-gradient(135deg, #0d1b3e 0%, #091228 60%, #060c1a 100%);
   z-index: 0;
 }
 
