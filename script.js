@@ -1,339 +1,269 @@
+/* =========================================
+   BRIGHT HORIZON SCHOOL — script.js
+   ========================================= */
+
 document.addEventListener('DOMContentLoaded', () => {
 
-  /* ==========================================
-     1. STICKY HEADER SHADOW
-     ========================================== */
-  const header = document.getElementById('site-header');
-  const onScroll = () => {
-    header.classList.toggle('scrolled', window.scrollY > 10);
+  /* ==============================
+     1. STICKY HEADER ON SCROLL
+  ============================== */
+  const header = document.getElementById('mainHeader');
+
+  const handleScroll = () => {
+    if (window.scrollY > 60) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
   };
-  window.addEventListener('scroll', onScroll, { passive: true });
+
+  window.addEventListener('scroll', handleScroll, { passive: true });
 
 
-  /* ==========================================
-     2. HAMBURGER / MOBILE MENU
-     ========================================== */
-  const hamburger      = document.getElementById('hamburger');
-  const mobileOverlay  = document.getElementById('mobile-overlay');
-  const mobileClose    = document.getElementById('mobile-close');
-
-  function openMenu() {
-    hamburger.classList.add('open');
-    hamburger.setAttribute('aria-expanded', 'true');
-    mobileOverlay.classList.add('open');
-    mobileOverlay.removeAttribute('aria-hidden');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeMenu() {
-    hamburger.classList.remove('open');
-    hamburger.setAttribute('aria-expanded', 'false');
-    mobileOverlay.classList.remove('open');
-    mobileOverlay.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-  }
+  /* ==============================
+     2. HAMBURGER / MOBILE NAV
+  ============================== */
+  const hamburger  = document.getElementById('hamburger');
+  const mobileNav  = document.getElementById('mobileNav');
 
   hamburger.addEventListener('click', () => {
-    mobileOverlay.classList.contains('open') ? closeMenu() : openMenu();
+    const isOpen = mobileNav.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', isOpen);
   });
 
-  mobileClose.addEventListener('click', closeMenu);
-
-  // Close when clicking the backdrop (not the drawer itself)
-  mobileOverlay.addEventListener('click', (e) => {
-    if (e.target === mobileOverlay) closeMenu();
+  // Close mobile nav on link click
+  mobileNav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileNav.classList.remove('open');
+      hamburger.classList.remove('open');
+    });
   });
 
-  // Close on Escape key
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      closeMenu();
-      closeSearch();
+  // Close mobile nav on outside click
+  document.addEventListener('click', (e) => {
+    if (!header.contains(e.target) && !mobileNav.contains(e.target)) {
+      mobileNav.classList.remove('open');
+      hamburger.classList.remove('open');
     }
   });
 
 
-  /* ==========================================
-     3. MOBILE ACCORDION SUB-MENUS
-     ========================================== */
-  document.querySelectorAll('.mobile-parent').forEach(btn => {
+  /* ==============================
+     3. REVEAL ON SCROLL
+  ============================== */
+  const revealEls = document.querySelectorAll('.reveal');
+
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el    = entry.target;
+        const delay = el.dataset.delay ? parseInt(el.dataset.delay) : 0;
+
+        setTimeout(() => {
+          el.classList.add('visible');
+        }, delay);
+
+        revealObserver.unobserve(el);
+      }
+    });
+  }, {
+    threshold:  0.12,
+    rootMargin: '0px 0px -40px 0px'
+  });
+
+  revealEls.forEach(el => revealObserver.observe(el));
+
+
+  /* ==============================
+     4. TESTIMONIAL TABS
+  ============================== */
+  const tabBtns     = document.querySelectorAll('.tab-btn');
+  const tabContents = document.querySelectorAll('.tab-content');
+
+  tabBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      const targetId = btn.getAttribute('data-target');
-      const sub      = document.getElementById(targetId);
-      const isOpen   = sub.classList.contains('open');
+      const target = btn.dataset.tab;
 
-      // Close all open subs
-      document.querySelectorAll('.mobile-sub.open').forEach(s => s.classList.remove('open'));
-      document.querySelectorAll('.mobile-parent.active').forEach(b => b.classList.remove('active'));
+      // Update buttons
+      tabBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
 
-      if (!isOpen) {
-        sub.classList.add('open');
-        btn.classList.add('active');
+      // Update content with fade
+      tabContents.forEach(c => {
+        c.classList.remove('active');
+        c.style.opacity = '0';
+      });
+
+      const targetContent = document.getElementById(`tab-${target}`);
+      if (targetContent) {
+        targetContent.classList.add('active');
+        // Fade in
+        requestAnimationFrame(() => {
+          targetContent.style.transition = 'opacity 0.4s ease';
+          targetContent.style.opacity   = '1';
+        });
+      }
+    });
+  });
+
+  // Set initial tab opacity
+  document.querySelectorAll('.tab-content.active').forEach(c => {
+    c.style.opacity = '1';
+  });
+
+
+  /* ==============================
+     5. SMOOTH SCROLL FOR ANCHORS
+  ============================== */
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const href = this.getAttribute('href');
+      if (href === '#') return;
+
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        const offset = header.offsetHeight + 16;
+        const top    = target.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top, behavior: 'smooth' });
       }
     });
   });
 
 
-  /* ==========================================
-     4. SEARCH BAR TOGGLE
-     ========================================== */
-  const searchBtn   = document.getElementById('search-btn');
-  const searchBar   = document.getElementById('search-bar');
-  const searchInput = document.getElementById('search-input');
-  const searchClose = document.getElementById('search-close');
+  /* ==============================
+     6. COUNTER ANIMATION (Stats)
+  ============================== */
+  const statNums = document.querySelectorAll('.stat-num');
+  let statsAnimated = false;
 
-  function openSearch() {
-    searchBar.classList.add('open');
-    searchBar.removeAttribute('aria-hidden');
-    setTimeout(() => searchInput.focus(), 50);
-  }
+  const animateCounter = (el) => {
+    const rawText = el.textContent.trim();
+    const numMatch = rawText.match(/[\d,]+/);
+    if (!numMatch) return;
 
-  function closeSearch() {
-    searchBar.classList.remove('open');
-    searchBar.setAttribute('aria-hidden', 'true');
-    searchInput.value = '';
-  }
+    const target   = parseInt(numMatch[0].replace(/,/g, ''));
+    const suffix   = rawText.replace(/[\d,]+/, '');
+    const duration = 1600;
+    const step     = 16;
+    const increment = target / (duration / step);
+    let current = 0;
 
-  searchBtn.addEventListener('click', () => {
-    searchBar.classList.contains('open') ? closeSearch() : openSearch();
-  });
-
-  searchClose.addEventListener('click', closeSearch);
-
-  // Search form submission (demo — replace with real search)
-  searchInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-      const query = searchInput.value.trim();
-      if (query) {
-        alert(`Searching for: "${query}"\n\n(Connect this to your real search system)`);
-        closeSearch();
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        current = target;
+        clearInterval(timer);
       }
-    }
-  });
+      el.textContent = Math.floor(current).toLocaleString('en-IN') + suffix;
+    }, step);
+  };
 
-
-  /* ==========================================
-     5. TESTIMONIAL / QUOTE SLIDER
-     ========================================== */
-  const track  = document.getElementById('testimonial-track');
-  const dots   = document.querySelectorAll('.dot');
-  let current  = 0;
-  let autoplayTimer;
-
-  function goToSlide(index) {
-    current = index;
-    track.style.transform = `translateX(-${current * 100}%)`;
-    dots.forEach((d, i) => d.classList.toggle('active', i === current));
-  }
-
-  function nextSlide() {
-    goToSlide((current + 1) % dots.length);
-  }
-
-  function startAutoplay() {
-    autoplayTimer = setInterval(nextSlide, 5000);
-  }
-
-  function stopAutoplay() {
-    clearInterval(autoplayTimer);
-  }
-
-  dots.forEach(dot => {
-    dot.addEventListener('click', () => {
-      stopAutoplay();
-      goToSlide(parseInt(dot.dataset.index));
-      startAutoplay();
-    });
-  });
-
-  // Touch / swipe support
-  let touchStartX = 0;
-  let touchEndX   = 0;
-
-  if (track) {
-    track.addEventListener('touchstart', (e) => {
-      touchStartX = e.changedTouches[0].clientX;
-    }, { passive: true });
-
-    track.addEventListener('touchend', (e) => {
-      touchEndX = e.changedTouches[0].clientX;
-      const diff = touchStartX - touchEndX;
-      if (Math.abs(diff) > 50) {
-        stopAutoplay();
-        if (diff > 0) {
-          goToSlide((current + 1) % dots.length);
-        } else {
-          goToSlide((current - 1 + dots.length) % dots.length);
-        }
-        startAutoplay();
-      }
-    }, { passive: true });
-
-    // Pause on hover
-    track.addEventListener('mouseenter', stopAutoplay);
-    track.addEventListener('mouseleave', startAutoplay);
-  }
-
-  startAutoplay();
-
-
-  /* ==========================================
-     6. SCROLL REVEAL ANIMATION
-     ========================================== */
-  const aosElements = document.querySelectorAll('[data-aos]');
-
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          // Stagger sibling cards
-          const siblings = Array.from(entry.target.parentElement.children);
-          const delay    = siblings.indexOf(entry.target) * 120;
-          setTimeout(() => {
-            entry.target.classList.add('aos-visible');
-          }, delay);
-          observer.unobserve(entry.target);
+  const statsSection = document.querySelector('.hero-stats');
+  if (statsSection) {
+    const statsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !statsAnimated) {
+          statsAnimated = true;
+          statNums.forEach(animateCounter);
+          statsObserver.disconnect();
         }
       });
-    }, { threshold: 0.15 });
+    }, { threshold: 0.5 });
 
-    aosElements.forEach(el => observer.observe(el));
-  } else {
-    // Fallback for old browsers
-    aosElements.forEach(el => el.classList.add('aos-visible'));
+    statsObserver.observe(statsSection);
   }
 
 
-  /* ==========================================
-     7. SMOOTH SCROLL FOR ANCHOR LINKS
-     ========================================== */
-  document.querySelectorAll('a[href^="#"]').forEach(link => {
-    link.addEventListener('click', (e) => {
-      const href = link.getAttribute('href');
-      if (href === '#') return;
-      const target = document.querySelector(href);
-      if (!target) return;
-      e.preventDefault();
-      closeMenu(); // also close mobile menu if open
-
-      const headerHeight = header.offsetHeight + 10;
-      const top = target.getBoundingClientRect().top + window.scrollY - headerHeight;
-      window.scrollTo({ top, behavior: 'smooth' });
-    });
-  });
-
-
-  /* ==========================================
-     8. ACTIVE NAV LINK ON SCROLL
-     ========================================== */
+  /* ==============================
+     7. ACTIVE NAV HIGHLIGHT
+  ============================== */
   const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-link');
+  const navLinks = document.querySelectorAll('.nav-item > a');
 
   const sectionObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         navLinks.forEach(link => {
-          const href = link.getAttribute('href');
-          link.style.color = href === `#${entry.target.id}` ? 'var(--green-dark)' : '';
+          link.style.color = '';
         });
       }
     });
-  }, { rootMargin: '-40% 0px -50% 0px' });
+  }, { threshold: 0.4 });
 
   sections.forEach(s => sectionObserver.observe(s));
 
 
-  /* ==========================================
-     9. BACK TO TOP (auto-inject button)
-     ========================================== */
-  const btt = document.createElement('button');
-  btt.setAttribute('aria-label', 'Back to top');
-  btt.style.cssText = `
-    position: fixed;
-    bottom: 1.5rem;
-    right: 1.5rem;
-    z-index: 500;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    border: none;
-    background: var(--green-dark);
-    color: white;
-    font-size: 1.2rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-  `;
-  btt.innerHTML = '↑';
-  document.body.appendChild(btt);
+  /* ==============================
+     8. NEWS CARD HOVER PARALLAX
+  ============================== */
+  document.querySelectorAll('.news-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect   = card.getBoundingClientRect();
+      const x      = (e.clientX - rect.left) / rect.width  - 0.5;
+      const y      = (e.clientY - rect.top)  / rect.height - 0.5;
+      const rotX   = y * -4;
+      const rotY   = x *  4;
+      card.style.transform = `translateY(-5px) perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+    });
 
-  btt.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+      card.style.transition = 'transform 0.5s ease';
+    });
+
+    card.addEventListener('mouseenter', () => {
+      card.style.transition = 'transform 0.1s ease, box-shadow 0.3s ease';
+    });
   });
 
-  window.addEventListener('scroll', () => {
-    const show = window.scrollY > 500;
-    btt.style.opacity       = show ? '1' : '0';
-    btt.style.pointerEvents = show ? 'all' : 'none';
-    btt.style.transform     = show ? 'translateY(0)' : 'translateY(10px)';
-  }, { passive: true });
 
-
-  /* ==========================================
-     10. INLINE FORM FEEDBACK (Contact / Inquiry)
-         Demo-ready: shows confirmation toast
-     ========================================== */
-  function showToast(message, type = 'success') {
-    const toast = document.createElement('div');
-    toast.textContent = message;
-    const bg = type === 'success' ? 'var(--green-dark)' : '#c0392b';
-    toast.style.cssText = `
-      position: fixed;
-      bottom: 5rem;
-      left: 50%;
-      transform: translateX(-50%) translateY(20px);
-      background: ${bg};
-      color: white;
-      padding: 0.75rem 1.5rem;
-      border-radius: 6px;
-      font-family: var(--font-body);
-      font-size: 0.9rem;
-      font-weight: 600;
-      z-index: 9999;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-      opacity: 0;
-      transition: all 0.35s ease;
-      white-space: nowrap;
-    `;
-    document.body.appendChild(toast);
-    requestAnimationFrame(() => {
-      toast.style.opacity = '1';
-      toast.style.transform = 'translateX(-50%) translateY(0)';
-    });
+  /* ==============================
+     9. ANNOUNCEMENT BAR DISMISS
+  ============================== */
+  const annBar = document.querySelector('.announcement-bar');
+  if (annBar) {
+    // Auto-dismiss after 10 seconds with a smooth collapse
     setTimeout(() => {
-      toast.style.opacity = '0';
-      toast.style.transform = 'translateX(-50%) translateY(20px)';
-      setTimeout(() => toast.remove(), 400);
-    }, 3500);
+      annBar.style.transition = 'max-height 0.5s ease, opacity 0.5s ease, padding 0.5s ease';
+      annBar.style.maxHeight  = annBar.offsetHeight + 'px';
+
+      requestAnimationFrame(() => {
+        annBar.style.maxHeight = '0';
+        annBar.style.opacity   = '0';
+        annBar.style.overflow  = 'hidden';
+        annBar.style.padding   = '0';
+      });
+    }, 10000);
   }
 
-  // Attach toast to CTA buttons as demo feedback
-  document.querySelectorAll('.btn-hero-primary, .btn-primary').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      const text = btn.textContent.trim();
-      if (text === 'Apply Now' || text === 'Apply') {
-        // Allow navigation — don't intercept real links
-        // showToast('Redirecting to application portal…');
+
+  /* ==============================
+     10. LOGO IMAGE FALLBACK
+  ============================== */
+  document.querySelectorAll('img').forEach(img => {
+    img.addEventListener('error', function () {
+      // If logo fails to load, show a text crest fallback
+      if (this.alt.toLowerCase().includes('logo') || this.alt.toLowerCase().includes('crest')) {
+        const fallback = document.createElement('div');
+        fallback.style.cssText = `
+          width: ${this.width || 60}px;
+          height: ${this.height || 60}px;
+          background: #1B2A4A;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #C9A84C;
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 1.2rem;
+          font-weight: 700;
+        `;
+        fallback.textContent = 'BH';
+        this.parentNode.replaceChild(fallback, this);
       }
     });
   });
 
-  // Expose showToast globally for use in any page
-  window.showToast = showToast;
-
-}); // end DOMContentLoaded
+});
