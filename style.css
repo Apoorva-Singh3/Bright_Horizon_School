@@ -1179,13 +1179,3 @@ a[href="#fsPageContent"]:focus { left: 0.5rem; }
 @media (max-width: 900px) {
   .news-card.featured .news-img { height: 160px; }
 }
-
-@media (min-width: 1024px) {
-  .logo-link img {
-    height: 140px !important;
-  }
-
-  .header-inner {
-    height: 155px;
-  }
-}
