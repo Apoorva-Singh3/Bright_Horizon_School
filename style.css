@@ -898,7 +898,6 @@ ul { list-style: none; }
   top: 0; right: 0;
   width: 45%;
   height: 100%;
-  /* background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 100%); */
   background: linear-gradient(135deg);
   clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 0% 100%);
 }
