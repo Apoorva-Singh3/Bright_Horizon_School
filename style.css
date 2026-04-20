@@ -993,7 +993,7 @@ ul { list-style: none; }
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.1rem;
   font-weight: 700;
-  color: var(--off-white);
+  color: var(--text-muted);
   margin-bottom: 4px;
 }
 
