@@ -179,7 +179,7 @@
       </nav>
 
       <div class="header-actions">
-        <a href="#" class="btn-apply">Apply Now</a>
+        <a href="#admission" class="btn-apply">Apply Now</a>
         <button class="hamburger" id="hamburger" aria-label="Toggle menu">
           <span></span><span></span><span></span>
         </button>
@@ -250,7 +250,7 @@
     <div class="ann-inner">
       <i class="fa fa-bell-concierge"></i>
       <span>Admissions Open 2026–27 — Limited Seats Available for Nursery to KG2</span>
-      <a href="#">Apply Now →</a>
+      <a href="#admission">Apply Now →</a>
     </div>
   </div>
 
@@ -516,6 +516,242 @@
     </div>
   </section> -->
 
+  <section class="admission-section section-pad reveal" id="admission">
+
+  <div class="container">
+
+```
+<div class="section-header">
+  <span class="section-eyebrow">Admissions Open</span>
+  <h2 class="section-title">Apply for Admission</h2>
+  <p class="section-sub">
+    Begin your child's educational journey with Bright Horizon School.
+    Submit the admission enquiry form below and our admissions team
+    will contact you shortly.
+  </p>
+</div>
+
+<div class="admission-wrapper">
+
+  <div class="admission-info">
+
+    <div class="admission-card">
+      <div class="info-icon">
+        <i class="fa-solid fa-graduation-cap"></i>
+      </div>
+
+      <h3>Admissions 2026–27</h3>
+
+      <p>
+        Applications are currently open for:
+      </p>
+
+      <ul class="admission-list">
+        <li>Nursery</li>
+        <li>LKG</li>
+        <li>UKG</li>
+      </ul>
+
+      <div class="admission-contact">
+        <p>
+          <i class="fa-solid fa-phone"></i>
+          +91 88781 12670
+        </p>
+
+        <p>
+          <i class="fa-solid fa-envelope"></i>
+          brighthorizonschool.public@gmail.com
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="admission-form-card">
+
+    <form id="admissionForm" novalidate>
+
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label for="studentName">
+            Student Name *
+          </label>
+          <input
+            type="text"
+            id="studentName"
+            name="studentName"
+            required
+          />
+          <span class="error-text"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="dob">
+            Date of Birth *
+          </label>
+          <input
+            type="date"
+            id="dob"
+            name="dob"
+            required
+          />
+          <span class="error-text"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="gender">
+            Gender *
+          </label>
+          <select id="gender" name="gender" required>
+            <option value="">Select Gender</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+          </select>
+          <span class="error-text"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="classApplying">
+            Applying For Class *
+          </label>
+          <select
+            id="classApplying"
+            name="classApplying"
+            required
+          >
+            <option value="">Select Class</option>
+            <option>Nursery</option>
+            <option>LKG</option>
+            <option>UKG</option>
+          </select>
+          <span class="error-text"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="parentName">
+            Parent / Guardian Name *
+          </label>
+          <input
+            type="text"
+            id="parentName"
+            name="parentName"
+            required
+          />
+          <span class="error-text"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="mobile">
+            Mobile Number *
+          </label>
+          <input
+            type="tel"
+            id="mobile"
+            name="mobile"
+            maxlength="10"
+            required
+          />
+          <span class="error-text"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="whatsapp">
+            WhatsApp Number
+          </label>
+          <input
+            type="tel"
+            id="whatsapp"
+            name="whatsapp"
+            maxlength="10"
+          />
+          <span class="error-text"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="email">
+            Email Address *
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+          />
+          <span class="error-text"></span>
+        </div>
+
+      </div>
+
+      <div class="form-group full-width">
+        <label for="address">
+          Residential Address *
+        </label>
+
+        <textarea
+          id="address"
+          name="address"
+          rows="3"
+          required
+        ></textarea>
+
+        <span class="error-text"></span>
+      </div>
+
+      <div class="form-group full-width">
+        <label for="previousSchool">
+          Previous School
+        </label>
+
+        <input
+          type="text"
+          id="previousSchool"
+          name="previousSchool"
+        />
+      </div>
+
+      <div class="form-group full-width">
+        <label for="notes">
+          Additional Notes
+        </label>
+
+        <textarea
+          id="notes"
+          name="notes"
+          rows="4"
+        ></textarea>
+      </div>
+
+      <div
+        id="formMessage"
+        class="form-message"
+      ></div>
+
+      <button
+        type="submit"
+        id="submitBtn"
+        class="admission-submit-btn"
+      >
+        <span class="btn-text">
+          Submit Admission Enquiry
+        </span>
+
+        <span class="spinner hidden"></span>
+      </button>
+
+    </form>
+
+  </div>
+
+</div>
+```
+
+  </div>
+
+</section>
+
+
   <!-- ADMISSIONS CTA -->
   <section class="cta-banner reveal">
     <div class="cta-bg-layer"></div>
@@ -528,7 +764,7 @@
         <h2>Begin Your Bright Horizon Journey</h2>
         <p>Admissions for the 2025–26 academic year are now open. Take the first step toward an extraordinary education.</p>
         <div class="cta-actions">
-          <a href="#" class="btn-primary">Apply Now</a>
+          <a href="#admission" class="btn-primary">Apply Now</a>
           <!-- <a href="#" class="btn-ghost-light">Schedule a Visit</a> -->
         </div>
       </div>
