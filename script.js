@@ -23,8 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ==============================
      2. HAMBURGER / MOBILE NAV
   ============================== */
-  const hamburger  = document.getElementById('hamburger');
-  const mobileNav  = document.getElementById('mobileNav');
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobileNav');
 
   hamburger.addEventListener('click', () => {
     const isOpen = mobileNav.classList.toggle('open');
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        const el    = entry.target;
+        const el = entry.target;
         const delay = el.dataset.delay ? parseInt(el.dataset.delay) : 0;
 
         setTimeout(() => {
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }, {
-    threshold:  0.12,
+    threshold: 0.12,
     rootMargin: '0px 0px -40px 0px'
   });
 
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ==============================
      4. TESTIMONIAL TABS
   ============================== */
-  const tabBtns     = document.querySelectorAll('.tab-btn');
+  const tabBtns = document.querySelectorAll('.tab-btn');
   const tabContents = document.querySelectorAll('.tab-content');
 
   tabBtns.forEach(btn => {
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Fade in
         requestAnimationFrame(() => {
           targetContent.style.transition = 'opacity 0.4s ease';
-          targetContent.style.opacity   = '1';
+          targetContent.style.opacity = '1';
         });
       }
     });
@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (target) {
         e.preventDefault();
         const offset = header.offsetHeight + 16;
-        const top    = target.getBoundingClientRect().top + window.scrollY - offset;
+        const top = target.getBoundingClientRect().top + window.scrollY - offset;
         window.scrollTo({ top, behavior: 'smooth' });
       }
     });
@@ -143,10 +143,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const numMatch = rawText.match(/[\d,]+/);
     if (!numMatch) return;
 
-    const target   = parseInt(numMatch[0].replace(/,/g, ''));
-    const suffix   = rawText.replace(/[\d,]+/, '');
+    const target = parseInt(numMatch[0].replace(/,/g, ''));
+    const suffix = rawText.replace(/[\d,]+/, '');
     const duration = 1600;
-    const step     = 16;
+    const step = 16;
     const increment = target / (duration / step);
     let current = 0;
 
@@ -200,11 +200,11 @@ document.addEventListener('DOMContentLoaded', () => {
   ============================== */
   document.querySelectorAll('.news-card').forEach(card => {
     card.addEventListener('mousemove', (e) => {
-      const rect   = card.getBoundingClientRect();
-      const x      = (e.clientX - rect.left) / rect.width  - 0.5;
-      const y      = (e.clientY - rect.top)  / rect.height - 0.5;
-      const rotX   = y * -4;
-      const rotY   = x *  4;
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      const rotX = y * -4;
+      const rotY = x * 4;
       card.style.transform = `translateY(-5px) perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
     });
 
@@ -227,13 +227,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Auto-dismiss after 10 seconds with a smooth collapse
     setTimeout(() => {
       annBar.style.transition = 'max-height 0.5s ease, opacity 0.5s ease, padding 0.5s ease';
-      annBar.style.maxHeight  = annBar.offsetHeight + 'px';
+      annBar.style.maxHeight = annBar.offsetHeight + 'px';
 
       requestAnimationFrame(() => {
         annBar.style.maxHeight = '0';
-        annBar.style.opacity   = '0';
-        annBar.style.overflow  = 'hidden';
-        annBar.style.padding   = '0';
+        annBar.style.opacity = '0';
+        annBar.style.overflow = 'hidden';
+        annBar.style.padding = '0';
       });
     }, 10000);
   }
@@ -266,18 +266,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-    /* ==============================
-     11. ADMISSION FORM
-  ============================== */
+  /* ==============================
+   11. ADMISSION FORM
+============================== */
 
   const admissionForm = document.getElementById('admissionForm');
 
   if (admissionForm) {
 
-    const submitBtn  = document.getElementById('submitBtn');
-    const btnText    = submitBtn.querySelector('.btn-text');
-    const spinner    = submitBtn.querySelector('.spinner');
-    const formMsg    = document.getElementById('formMessage');
+    const submitBtn = document.getElementById('submitBtn');
+    const btnText = submitBtn.querySelector('.btn-text');
+    const spinner = submitBtn.querySelector('.spinner');
+    const formMsg = document.getElementById('formMessage');
 
     let isSubmitting = false;
 
@@ -489,40 +489,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
 
-          const response =
-            await fetch(
-              GOOGLE_SCRIPT_URL,
-              {
-                method: 'POST',
-                mode: 'cors',
-                headers: {
-                  'Content-Type':
-                    'application/json'
-                },
-                body: JSON.stringify(formData)
-              }
-            );
+          await fetch(
+            GOOGLE_SCRIPT_URL,
+            {
+              method: 'POST',
+              mode: 'no-cors',
+              body: JSON.stringify(formData)
+            }
+          );
 
-          const result =
-            await response.json();
+          showMessage(
+            'Admission enquiry submitted successfully. Our admissions team will contact you shortly.',
+            'success'
+          );
 
-          if (result.success) {
-
-            showMessage(
-              'Admission enquiry submitted successfully. Our admissions team will contact you shortly.',
-              'success'
-            );
-
-            admissionForm.reset();
-
-          } else {
-
-            showMessage(
-              result.message ||
-              'Submission failed. Please try again.',
-              'error'
-            );
-          }
+          admissionForm.reset();
 
         } catch (error) {
 
@@ -544,8 +525,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
           spinner.classList.add('hidden');
         }
-      }
-    );
+      });
+
+    /* Numbers only */
 
     /* Numbers only */
 
@@ -565,9 +547,11 @@ document.addEventListener('DOMContentLoaded', () => {
           input.value =
             input.value.slice(0, 10);
         }
+
       });
+
     });
 
-  }
+  } // closes if(admissionForm)
 
-});
+}); // closes DOMContentLoaded
