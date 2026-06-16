@@ -266,4 +266,308 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+    /* ==============================
+     11. ADMISSION FORM
+  ============================== */
+
+  const admissionForm = document.getElementById('admissionForm');
+
+  if (admissionForm) {
+
+    const submitBtn  = document.getElementById('submitBtn');
+    const btnText    = submitBtn.querySelector('.btn-text');
+    const spinner    = submitBtn.querySelector('.spinner');
+    const formMsg    = document.getElementById('formMessage');
+
+    let isSubmitting = false;
+
+    const GOOGLE_SCRIPT_URL =
+      "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEBAPP_URL_HERE";
+
+    function showMessage(message, type = "success") {
+
+      formMsg.className = `form-message ${type}`;
+      formMsg.textContent = message;
+
+      formMsg.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest"
+      });
+    }
+
+    function clearErrors() {
+
+      admissionForm
+        .querySelectorAll('.form-group')
+        .forEach(group => {
+          group.classList.remove('error');
+        });
+
+      admissionForm
+        .querySelectorAll('.error-text')
+        .forEach(error => {
+          error.textContent = '';
+        });
+    }
+
+    function setError(input, message) {
+
+      const group = input.closest('.form-group');
+
+      if (!group) return;
+
+      group.classList.add('error');
+
+      const errorText =
+        group.querySelector('.error-text');
+
+      if (errorText) {
+        errorText.textContent = message;
+      }
+    }
+
+    function validateForm() {
+
+      clearErrors();
+
+      let valid = true;
+
+      const studentName =
+        document.getElementById('studentName');
+
+      const parentName =
+        document.getElementById('parentName');
+
+      const mobile =
+        document.getElementById('mobile');
+
+      const whatsapp =
+        document.getElementById('whatsapp');
+
+      const email =
+        document.getElementById('email');
+
+      const address =
+        document.getElementById('address');
+
+      const dob =
+        document.getElementById('dob');
+
+      const gender =
+        document.getElementById('gender');
+
+      const classApplying =
+        document.getElementById('classApplying');
+
+      if (!studentName.value.trim()) {
+        setError(studentName,
+          'Student name is required');
+        valid = false;
+      }
+
+      if (!parentName.value.trim()) {
+        setError(parentName,
+          'Parent name is required');
+        valid = false;
+      }
+
+      if (!dob.value) {
+        setError(dob,
+          'Date of birth is required');
+        valid = false;
+      }
+
+      if (!gender.value) {
+        setError(gender,
+          'Please select gender');
+        valid = false;
+      }
+
+      if (!classApplying.value) {
+        setError(classApplying,
+          'Please select class');
+        valid = false;
+      }
+
+      if (!address.value.trim()) {
+        setError(address,
+          'Address is required');
+        valid = false;
+      }
+
+      const mobileRegex = /^[6-9]\d{9}$/;
+
+      if (!mobileRegex.test(mobile.value.trim())) {
+        setError(
+          mobile,
+          'Enter valid 10-digit mobile number'
+        );
+        valid = false;
+      }
+
+      if (
+        whatsapp.value.trim() &&
+        !mobileRegex.test(whatsapp.value.trim())
+      ) {
+        setError(
+          whatsapp,
+          'Enter valid WhatsApp number'
+        );
+        valid = false;
+      }
+
+      const emailRegex =
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!emailRegex.test(email.value.trim())) {
+        setError(
+          email,
+          'Enter valid email address'
+        );
+        valid = false;
+      }
+
+      return valid;
+    }
+
+    admissionForm.addEventListener(
+      'submit',
+      async function (e) {
+
+        e.preventDefault();
+
+        if (isSubmitting) return;
+
+        formMsg.className = 'form-message';
+        formMsg.textContent = '';
+
+        if (!validateForm()) return;
+
+        isSubmitting = true;
+
+        submitBtn.disabled = true;
+
+        btnText.textContent =
+          'Submitting...';
+
+        spinner.classList.remove('hidden');
+
+        const formData = {
+          studentName:
+            document.getElementById('studentName').value,
+
+          dob:
+            document.getElementById('dob').value,
+
+          gender:
+            document.getElementById('gender').value,
+
+          classApplying:
+            document.getElementById('classApplying').value,
+
+          parentName:
+            document.getElementById('parentName').value,
+
+          mobile:
+            document.getElementById('mobile').value,
+
+          whatsapp:
+            document.getElementById('whatsapp').value,
+
+          email:
+            document.getElementById('email').value,
+
+          address:
+            document.getElementById('address').value,
+
+          previousSchool:
+            document.getElementById('previousSchool').value,
+
+          notes:
+            document.getElementById('notes').value
+        };
+
+        try {
+
+          const response =
+            await fetch(
+              GOOGLE_SCRIPT_URL,
+              {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                  'Content-Type':
+                    'application/json'
+                },
+                body: JSON.stringify(formData)
+              }
+            );
+
+          const result =
+            await response.json();
+
+          if (result.success) {
+
+            showMessage(
+              'Admission enquiry submitted successfully. Our admissions team will contact you shortly.',
+              'success'
+            );
+
+            admissionForm.reset();
+
+          } else {
+
+            showMessage(
+              result.message ||
+              'Submission failed. Please try again.',
+              'error'
+            );
+          }
+
+        } catch (error) {
+
+          console.error(error);
+
+          showMessage(
+            'Unable to submit the form. Please try again later.',
+            'error'
+          );
+
+        } finally {
+
+          isSubmitting = false;
+
+          submitBtn.disabled = false;
+
+          btnText.textContent =
+            'Submit Admission Enquiry';
+
+          spinner.classList.add('hidden');
+        }
+      }
+    );
+
+    /* Numbers only */
+
+    ['mobile', 'whatsapp'].forEach(id => {
+
+      const input =
+        document.getElementById(id);
+
+      if (!input) return;
+
+      input.addEventListener('input', () => {
+
+        input.value =
+          input.value.replace(/\D/g, '');
+
+        if (input.value.length > 10) {
+          input.value =
+            input.value.slice(0, 10);
+        }
+      });
+    });
+
+  }
+  
 });
